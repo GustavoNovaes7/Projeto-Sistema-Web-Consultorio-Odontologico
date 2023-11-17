@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Etapas 7 e 8 - PI - Página Inicial</title>
+</head>
+
+<body>
+    <div id="corpoGeral" class="container">
+        <header class="row">
+            <div class="col-sm-2" style="height: 140px;">
+                <a href="index-inicial.html"><img src="imgs/logo.png" alt="logo consultório" style="width: 100%;"
+                        class="img-fluid"></a>
+            </div>
+            <div class="col-sm-4" style="padding-top: 15px;">
+                <h2>Consultório Específico</h2>
+                <p>Cidade Randômica <br> Rua Aleatória, 123 <br> Bairro Indefinido</p>
+            </div>
+            <div class="col-sm-4">
+                <nav id="menuPrincipal">
+                    <a href="index-agendamento.html">Agendar atendimento </a>|
+                    <a href="index-consultas.html">Suas Consultas </a>|
+                    <a href="index-equipe.html">Equipe</a>
+                </nav>
+            </div>
+            <div class="col-sm-2">
+                <nav id="menuLogin">
+                    <div class="row">
+                        <a href="index-login.html">Login</a>
+                    </div>
+                    <div class="row">
+                        <a href="index-cadastro.html">Cadastre-se</a>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <a href="index-atualizar.html">Sua conta</a>
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <h2 class="pb-3">Agendar Atendimento</h2>
+                <form action="http://localhost:3000/index-agendamento" action="POST">
+                    <div class="pb-4">
+                        <label for="txtDataHora" class="form-label"><b>Data e Horário*:</b></label>
+                        <input id="txtDataHora" type="datetime-local" class="form-control" />
+                    </div>
+                    <div class="pb-4">
+                        <label for="slctEspecialidade" class="form-label"><b>Especialidade Procurada*:</b></label>
+                        <select id="slctEspecialidade" type="select" class="form-select">
+                            <option value="1">Opção 1</option>
+                            <option value="2">Opção 2</option>
+                        </select>
+                    </div>
+                    <div class="pb-4">
+                        <label for="slctDentista" class="form-label"><b>Cirurgiã(o)-Dentista*:</b></label>
+                        <select id="slctDentista" type="select" class="form-select">
+                            <option value="1">Dentista 1</option>
+                            <option value="2">Dentista 2</option>
+                        </select>
+                    </div>
+                    <div class="pb-4">
+                        <label class="form-label"><b>Possui Convênio?</b></label>
+                        <div class="form-check">
+                            <label for="rbtnConvenioSim" class="form-check-label"><b>Sim</b></label>
+                            <input class="form-check-input" name="opcaoConvenio" type="radio" id="rbtnConvenioSim" />
+                        </div>
+                        <div class="form-check">
+                            <label for="rbtnConvenioNao" class="form-check-label"><b>Não</b></label>
+                            <input class="form-check-input" name="opcaoConvenio" type="radio" id="rbtnConvenioNao"
+                                checked />
+                        </div>
+                    </div>
+                    <div class="pb-4">
+                        <label for="txtConvenio" class="form-label"><b>N° do Convênio:</b></label>
+                        <input id="txtConvenio" type="number" class="form-control" disabled/>
+                    </div>
+                    <div class="pb-4">
+                        * Campos obrigatórios
+                    </div>
+                    <div class="pb-4">
+                        <input type="submit" id="btnSubmit" class="btn btn-primary" value="Agendar" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <footer class="row">
+            <div class="col-sm-6">
+                <h3>Informações de Contato</h3>
+                <p>Venha falar conosco e tire suas dúvidas</p>
+            </div>
+            <div class="col-sm-2">
+                <div class="text-center">
+                    <img src="imgs/whatsapp.png" alt="telefone" class="imgsIcones">
+                    <p>(00)988776655</p>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="text-center">
+                    <img src="imgs/email.png" alt="e-mail" class="imgsIcones">
+                    <p>consultorio@email.com</p>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="text-center">
+                    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"><img
+                            src="imgs/instagram.png" alt="instagram" class="imgsIcones"></a>
+                    <p>
+                        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"
+                            id="txtInstagram">Instagram</a>
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script src="scripts.js"></script>
+</body>
+
+</html>

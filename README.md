@@ -53,15 +53,25 @@ Um sistema web de um consultório odontológico que permitirá aos pacientes:
 ### Tela de Agendamento de Consultas
 
 ##### Requisitos Funcionais
-[RF05] O sistema deve permitir o agendamento de consulta onde os seguintes campos serão utilizados: especialidade procurada, cirurgião-dentista de preferência, data, horário, número do convênio.
+[RF05] O sistema deve permitir o agendamento de consulta onde os seguintes campos serão utilizados: especialidade procurada, cirurgiã(o)-dentista de preferência, data, horário, número do convênio.
 
-[RF06] O sistema deve permitir a seleção de um cirurgião-dentista cadastrado no sistema para associar ao agendamento, caso o(a) paciente possua algum cirurgião-dentista de preferência.
+[RF06] O sistema deve permitir a seleção de um cirurgião-dentista cadastrado no sistema para associar ao agendamento.
 
 ##### Regras de Negócio
-[RN06] Campos considerados obrigatórios na tela de agendamento de consulta: especialidade procurada, data e horário.
+[RN06] Campos considerados obrigatórios na tela de agendamento de consulta: especialidade procurada, cirurgiã(o)-dentista, data e horário.
 
 ### Tela Principal
 [RF07] Tela principal deve ser composta por notícias da clínica, informação de endereço e menu de navegação com acesso as outras funcionalidades
 
 ### Tela de Equipe
 [RF08] Tela contendo informações sobre a equipe que atua na clínica, dando foco aos cirurgiões-dentistas e suas especializações.
+
+### Tela de Consultas
+[RF09] Tela contendo listagem das consultas marcadas pelo paciente.
+
+[RF10] Sistema deve permitir o cancelamento de consultas ainda não realizadas dentre as consultas listadas.
+
+### Tela de Sua Conta
+[RF11] Tela contendo listagem das informações cadastradas por determinado paciente.
+
+[RF12] Sistema deve permitir atualização dos dados do paciente.

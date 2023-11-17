@@ -1,0 +1,94 @@
+/*Configurações Gerais*/
+body {
+    background-color: rgb(15, 28, 63) !important;
+}
+
+.btn {
+    width: 200px !important;
+    font-size: 25px !important;
+}
+
+input,
+select {
+    border-color: rgb(134, 134, 134) !important;
+}
+
+/*Cabeçalho e Rodapé*/
+header,
+footer {
+    background-color: rgb(15, 28, 63);
+    color: white;
+}
+
+footer {
+    padding: 20px 0px 12px 0px;
+}
+
+header a,
+footer a,
+a,
+a:visited,
+a:active {
+    color: white;
+}
+
+#menuPrincipal {
+    padding-top: 85px;
+    font-size: 16px;
+    font-family: "Inter", sans-serif;
+}
+
+#menuLogin {
+    padding-top: 35px;
+    padding-left: 80px;
+    font-size: 15.7px;
+    font-family: "Inter", sans-serif;
+}
+
+.imgsIcones {
+    width: auto;
+    height: 38px;
+}
+
+#txtInstagram {
+    text-decoration: none;
+}
+
+/*Página Inicial*/
+.containerCorpo {
+    border: solid 2px rgb(161, 161, 161);
+}
+
+#corpoGeral {
+    background-color: white;
+}
+
+/*Página Equipe*/
+.imgEquipe {
+    height: 130px;
+    width: auto;
+}
+
+/*Página Login*/
+#containerLogin.row {
+    background-color: white;
+    padding-left: 10px;
+    margin-left: 32%;
+    margin-right: 32%;
+}
+
+#cadastrarTelaLogin {
+    color: rgb(31, 52, 109) !important;
+}
+
+/*Tela de Consulta*/
+#btnCancelaConsulta {
+    max-width: 150px;
+    max-height: 50px;
+    font-size: 22px !important;
+}
+
+/*Tela de Sua Conta*/
+#btnAtualizar {
+    width: 270px !important;
+}
