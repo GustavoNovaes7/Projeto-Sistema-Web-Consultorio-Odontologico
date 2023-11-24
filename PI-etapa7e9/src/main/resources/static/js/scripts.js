@@ -2,18 +2,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /**Botão 'Atualizar Informações' - Tela Sua Conta*/
     var btnAtualizar = document.getElementById("btnAtualizar");
-
-    if (btnAtualizar) {
-        btnAtualizar.addEventListener("click", function () {
-            habilitarCampos();
-        });
-    }
-
+    var txtLogin = document.getElementById("txtLogin");
+    var txtSenha = document.getElementById("txtSenha");
 
     function habilitarCampos() {
         var inputs = document.querySelectorAll("input, select");
         inputs.forEach(function (input) {
             input.removeAttribute("disabled");
+        });
+    }
+
+    if (btnAtualizar) {
+        btnAtualizar.addEventListener("click", function () {
+            habilitarCampos();
         });
     }
 
@@ -45,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (slctIndicacao) {
         slctIndicacao.addEventListener("change", function () {
-            if (slctIndicacao.value != 1) {
+            if (slctIndicacao.value != "Conhecido(a)") {
                 txtNomeIndicacao.setAttribute("disabled", true);
                 txtNomeIndicacao.value = "";
             } else {

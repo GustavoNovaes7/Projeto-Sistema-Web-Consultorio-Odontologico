@@ -1,44 +1,44 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <title>Etapas 7 e 8 - PI - Página Equipe</title>
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"/>
+    <title>Etapas 7 e 9 - PI - Página Equipe</title>
 </head>
 
 <body>
     <div id="corpoGeral" class="container">
         <header class="row">
             <div class="col-sm-2" style="height: 140px;">
-                <a href="index-inicial.html"><img src="imgs/logo.png" alt="logo consultório" style="width: 100%;"
-                        class="img-fluid"></a>
+                <a th:href="@{/index-inicial}"><img src="/imgs/logo.png" alt="logo consultório" style="width: 100%;"
+                        class="img-fluid"/></a>
             </div>
             <div class="col-sm-4" style="padding-top: 15px;">
                 <h2>Consultório Específico</h2>
-                <p>Cidade Randômica <br> Rua Aleatória, 123 <br> Bairro Indefinido</p>
+                <p>Cidade Randômica <br/> Rua Aleatória, 123 <br/> Bairro Indefinido</p>
             </div>
             <div class="col-sm-4">
                 <nav id="menuPrincipal">
-                    <a href="index-agendamento.html">Agendar atendimento </a>|
-                    <a href="index-consultas.html">Suas Consultas </a>|
-                    <a href="index-equipe.html">Equipe</a>
+                    <a th:href="@{/index-agendamento}">Agendar atendimento </a>|
+                    <a th:href="@{/index-consultas}">Suas Consultas </a>|
+                    <a th:href="@{/index-equipe}">Equipe</a>
                 </nav>
             </div>
             <div class="col-sm-2">
                 <nav id="menuLogin">
                     <div class="row">
-                        <a href="index-login.html">Login</a>
+                        <a th:href="@{/index-login}">Login</a>
                     </div>
                     <div class="row">
-                        <a href="index-cadastro.html">Cadastre-se</a>
+                        <a th:href="@{/index-cadastro}">Cadastre-se</a>
                     </div>
-                    <br>
+                    <br/>
                     <div class="row">
-                        <a href="index-atualizar.html">Sua conta</a>
+                        <a th:href="@{'/index-atualizar/' + ${usuario}}">Sua conta</a>
                     </div>
                 </nav>
             </div>
@@ -50,19 +50,19 @@
             </div>
             <div class="row">
                 <div class="col-sm-4">
-                    <img src="imgs/dentista-m1.jpg" alt="Cirurgião-Dentista Julia" class="imgEquipe">
+                    <img src="/imgs/dentista-m1.jpg" alt="Cirurgião-Dentista Julia" class="imgEquipe"/>
                     <h5>Julia Gomes Pereira</h5>
                     <h6>Ortodontista | Endodontista</h6>
                     <p>Descrição das especializações da Cirurgiã-Dentista e breve descrição da profissional</p>
                 </div>
                 <div class="col-sm-4">
-                    <img src="imgs/dentista-h1.jpg" alt="Cirurgião-Dentista Carlos" class="imgEquipe">
+                    <img src="/imgs/dentista-h1.jpg" alt="Cirurgião-Dentista Carlos" class="imgEquipe"/>
                     <h5>Carlos Araújo</h5>
                     <h6>Odontopediatra | Endodontista</h6>
                     <p>Descrição da especialização do Cirurgião-Dentista e breve descrição do profissional</p>
                 </div>
                 <div class="col-sm-4">
-                    <img src="imgs/dentista-m2.jpg" alt="Cirurgião-Dentista Luisa" class="imgEquipe">
+                    <img src="/imgs/dentista-m2.jpg" alt="Cirurgião-Dentista Luisa" class="imgEquipe"/>
                     <h5>Luisa Castelo Matos</h5>
                     <h6>Implantodontista | Buco-maxilo</h6>
                     <p>Descrição das especializações da Cirurgiã-Dentista e breve descrição da profissional</p>
@@ -70,41 +70,41 @@
             </div>
             <div class="row">
                 <div class="col-sm-4">
-                    <img src="imgs/dentista-h2.jpg" alt="Cirurgião-Dentista Rodrigo" class="imgEquipe">
+                    <img src="/imgs/dentista-h2.jpg" alt="Cirurgião-Dentista Rodrigo" class="imgEquipe"/>
                     <h5>Rodrigo Dias</h5>
                     <h6>Clínico Geral</h6>
                     <p>Descrição da especialização do Cirurgião-Dentista e breve descrição do profissional</p>
                 </div>
                 <div class="col-sm-4">
-                    <img src="imgs/dentista-m3.jpg" alt="Cirurgião-Dentista Marcela" class="imgEquipe">
+                    <img src="/imgs/dentista-m3.jpg" alt="Cirurgião-Dentista Marcela" class="imgEquipe"/>
                     <h5>Marcela Dutra</h5>
                     <h6>Odontopediatra | Ortodontista</h6>
                     <p>Descrições das especializações da Cirurgiã-Dentista e breve descrição da profissional</p>
                 </div>
                 <div class="col-sm-4">
-                    <img src="imgs/dentista-h3.jpg" alt="Cirurgião-Dentista Marcio" class="imgEquipe">
+                    <img src="/imgs/dentista-h3.jpg" alt="Cirurgião-Dentista Marcio" class="imgEquipe"/>
                     <h5>Marcio Castro Mirandas</h5>
                     <h6>Buco-maxilo</h6>
                     <p>Descrição da especialização do Cirurgião-Dentista e breve descrição do profissional</p>
                 </div>
             </div>
-            <hr>
+            <hr/>
             <div class="row">
                 <h2 class="text-center">Auxiliares</h2>
             </div>
             <div class="row">
                 <div class="col-sm-4">
-                    <img src="imgs/auxiliar-m1.jpg" alt="Auxiliar Lívia" class="imgEquipe">
+                    <img src="/imgs/auxiliar-m1.jpg" alt="Auxiliar Lívia" class="imgEquipe"/>
                     <h5>Lívia Fonseca</h5>
                     <p>Breve descrição da profissional</p>
                 </div>
                 <div class="col-sm-4">
-                    <img src="imgs/auxiliar-h1.jpg" alt="Auxiliar Fabrício" class="imgEquipe">
+                    <img src="/imgs/auxiliar-h1.jpg" alt="Auxiliar Fabrício" class="imgEquipe"/>
                     <h5>Fabrício Gomes</h5>
                     <p>Breve descrição do profissional</p>
                 </div>
                 <div class="col-sm-4">
-                    <img src="imgs/auxiliar-m2.jpg" alt="Auxiliar Giovanna" class="imgEquipe">
+                    <img src="/imgs/auxiliar-m2.jpg" alt="Auxiliar Giovanna" class="imgEquipe"/>
                     <h5>Giovanna Calhais</h5>
                     <p>Breve descrição da profissional</p>
                 </div>
@@ -118,20 +118,20 @@
             </div>
             <div class="col-sm-2">
                 <div class="text-center">
-                    <img src="imgs/whatsapp.png" alt="telefone" class="imgsIcones">
+                    <img src="/imgs/whatsapp.png" alt="telefone" class="imgsIcones"/>
                     <p>(00)988776655</p>
                 </div>
             </div>
             <div class="col-sm-2">
                 <div class="text-center">
-                    <img src="imgs/email.png" alt="e-mail" class="imgsIcones">
+                    <img src="/imgs/email.png" alt="e-mail" class="imgsIcones"/>
                     <p>consultorio@email.com</p>
                 </div>
             </div>
             <div class="col-sm-2">
                 <div class="text-center">
                     <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"><img
-                            src="imgs/instagram.png" alt="instagram" class="imgsIcones"></a>
+                            src="/imgs/instagram.png" alt="instagram" class="imgsIcones"/></a>
                     <p>
                         <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"
                             id="txtInstagram">Instagram</a>
@@ -144,7 +144,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
-    <script src="scripts.js"></script>
+    <script th:src="@{/js/scripts.js}"></script>
 </body>
 
 </html>

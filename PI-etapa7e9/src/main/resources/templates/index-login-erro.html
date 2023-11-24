@@ -1,61 +1,70 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <title>Etapas 7 e 8 - PI - Página Inicial</title>
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"/>
+    <title>Etapas 7 e 9 - PI - Página de Login</title>
 </head>
 
 <body>
     <div class="container">
         <header class="row">
             <div class="col-sm-2" style="height: 140px;">
-                <a href="index-inicial.html"><img src="imgs/logo.png" alt="logo consultório" style="width: 100%;"
-                        class="img-fluid"></a>
+                <a th:href="@{/index-inicial}"><img src="/imgs/logo.png" alt="logo consultório" style="width: 100%;"
+                        class="img-fluid"/></a>
             </div>
             <div class="col-sm-4" style="padding-top: 15px;">
                 <h2>Consultório Específico</h2>
-                <p>Cidade Randômica <br> Rua Aleatória, 123 <br> Bairro Indefinido</p>
+                <p>Cidade Randômica <br/> Rua Aleatória, 123 <br/> Bairro Indefinido</p>
             </div>
             <div class="col-sm-4">
                 <nav id="menuPrincipal">
-                    <a href="index-agendamento.html">Agendar atendimento </a>|
-                    <a href="index-consultas.html">Suas Consultas </a>|
-                    <a href="index-equipe.html">Equipe</a>
+                    <a th:href="@{/index-agendamento}">Agendar atendimento </a>|
+                    <a th:href="@{/index-consultas}">Suas Consultas </a>|
+                    <a th:href="@{/index-equipe}">Equipe</a>
                 </nav>
             </div>
             <div class="col-sm-2">
                 <nav id="menuLogin">
                     <div class="row">
-                        <a href="index-login.html">Login</a>
+                        <a th:href="@{/index-login}">Login</a>
                     </div>
                     <div class="row">
-                        <a href="index-cadastro.html">Cadastre-se</a>
+                        <a th:href="@{/index-cadastro}">Cadastre-se</a>
                     </div>
-                    <br>
+                    <br/>
                     <div class="row">
-                        <a href="index-atualizar.html">Sua conta</a>
+                        <a th:href="@{'/index-atualizar/' + ${usuario}}">Sua conta</a>
                     </div>
                 </nav>
             </div>
         </header>
-
+        
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="alert alert-danger col-sm-4" role="alert">
+                Erro ao tentar Login! Verifique se o os dados digitados estão corretos.<br/>
+                Caso não possua cadastro, <a th:href="@{/index-cadastro}" class="alert-link">realize seu cadastro.</a>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+        
         <div id="containerLogin">
             <div class="row" id="containerLogin">
                 <div class="col-sm-11">
                     <h2 class="pb-3">Realizar Login</h2>
-                    <form action="http://localhost:3000/index-agendamento" action="POST">
+                    <form th:action="@{/index-login}" th:object="${usuarioNovo}" method="post">
                         <div class="pb-4">
                             <label for="txtLogin" class="form-label"><b>Login:</b></label>
-                            <input id="txtLogin" type="text" class="form-control" />
+                            <input id="txtLogin" type="text" class="form-control" th:field="*{login}" required=""/>
                         </div>
                         <div class="pb-4">
                             <label for="txtSenha" class="form-label"><b>Senha:</b></label>
-                            <input id="txtSenha" type="password" class="form-control" />
+                            <input id="txtSenha" type="password" class="form-control" th:field="*{senha}" required=""/>
                         </div>
                         <div class="pb-4">
                             <input type="submit" id="btnSubmit" class="btn btn-primary" value="Login" />
@@ -63,8 +72,8 @@
                     </form>
                     <div class="pb-4">
                         Não possui Login?
-                        <br>
-                        <a id="cadastrarTelaLogin" href="index-cadastro.html">Realizar Cadastro</a>
+                        <br/>
+                        <a id="cadastrarTelaLogin" th:href="@{/index-cadastro}">Realizar Cadastro</a>
                     </div>
                 </div>
             </div>
@@ -77,20 +86,20 @@
             </div>
             <div class="col-sm-2">
                 <div class="text-center">
-                    <img src="imgs/whatsapp.png" alt="telefone" class="imgsIcones">
+                    <img src="/imgs/whatsapp.png" alt="telefone" class="imgsIcones"/>
                     <p>(00)988776655</p>
                 </div>
             </div>
             <div class="col-sm-2">
                 <div class="text-center">
-                    <img src="imgs/email.png" alt="e-mail" class="imgsIcones">
+                    <img src="/imgs/email.png" alt="e-mail" class="imgsIcones"/>
                     <p>consultorio@email.com</p>
                 </div>
             </div>
             <div class="col-sm-2">
                 <div class="text-center">
                     <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"><img
-                            src="imgs/instagram.png" alt="instagram" class="imgsIcones"></a>
+                            src="/imgs/instagram.png" alt="instagram" class="imgsIcones"/></a>
                     <p>
                         <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"
                             id="txtInstagram">Instagram</a>
@@ -103,7 +112,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
-    <script src="scripts.js"></script>
+    <script th:src="@{/js/scripts.js}"></script>
 </body>
 
 </html>
