@@ -11,6 +11,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Data
 @Entity
@@ -55,4 +56,10 @@ public class PacienteEntity {
 
     @ManyToOne
     private ConvenioEntity convenio;
+    
+    public void setSenha(String senha) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String hashedPassword = passwordEncoder.encode(senha);
+        this.senha = hashedPassword;
+    }
 }

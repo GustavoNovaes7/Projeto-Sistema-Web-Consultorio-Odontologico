@@ -30,7 +30,10 @@
             </div>
             <div class="col-sm-2">
                 <nav id="menuLogin">
-                    <div class="row">
+                    <div class="row" th:if="${estaLogado == true}">
+                        <a th:href="@{/logoff}">Logoff</a>
+                    </div>
+                    <div class="row" th:unless="${estaLogado == true}">
                         <a th:href="@{/index-login}">Login</a>
                     </div>
                     <div class="row">
@@ -47,7 +50,7 @@
         <div class="row">
             <div class="col-sm-6">
                 <h2 class="pb-3">Agendar Atendimento</h2>
-                <form th:action="@{/index-agendamento}" th:object="${atendimento}" method="post">                    
+                <form id="formAgendamento" th:action="@{/index-agendamento}" th:object="${atendimento}" method="post" onsubmit="return validarDataHorario();">                    
                     <input type="hidden" th:field="*{paciente}" />
                     <input type="hidden" th:if="*{convenio != null}" th:field="*{convenio}" />
                     <div class="pb-4">

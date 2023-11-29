@@ -54,4 +54,55 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
+
+    /**Botão pergunta de confirmação para cancelar agendamento*/
+    var botoesCancelar = document.querySelectorAll('.btnCancelaConsulta');
+
+    botoesCancelar.forEach(function (botao) {
+        botao.addEventListener('click', function (event) {
+            var idConsulta = botao.getAttribute('data-id');
+            var resposta = confirmarCancelamento(idConsulta);
+
+            if (!resposta) {
+                event.preventDefault();
+            }
+        });
+    });
+
+    function confirmarCancelamento(idConsulta) {
+        return confirm("Tem certeza que deseja cancelar a consulta?");
+    }
+
+    /**Colocando data mínima aceita (Pessoas com 18 anos ou mais)*/
+    var dataAtual = new Date();
+    var idadeMinima = 18;
+    var txtNascimento = document.getElementById('txtNascimento');
+
+    if (txtNascimento) {
+        dataAtual.setFullYear(dataAtual.getFullYear() - idadeMinima);
+        var dataMinima = dataAtual.toISOString().split('T')[0];
+        document.getElementById('txtNascimento').setAttribute('max', dataMinima);
+    }
+
+    /**Colocando datas e horários válidos para agendamento (Apenas após a data e hora atuais)*/
+    function validarDataHorario() {
+        var dataHoraAgendamento = new Date(document.getElementById('txtDataHora').value);
+        var dataAtual = new Date();
+
+        if (dataHoraAgendamento <= dataAtual) {
+            alert("Por favor, selecione uma data e horário válidos.");
+            return false;
+        }
+        return true;
+    }
+
+    var formAgendamento = document.getElementById('formAgendamento');
+
+    if (formAgendamento) {
+        document.getElementById('formAgendamento').addEventListener('submit', function (event) {
+            if (!validarDataHorario()) {
+                event.preventDefault();
+            }
+        });
+    }
 });

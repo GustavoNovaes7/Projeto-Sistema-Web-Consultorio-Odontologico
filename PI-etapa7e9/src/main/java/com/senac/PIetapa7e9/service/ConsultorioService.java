@@ -111,4 +111,9 @@ public class ConsultorioService {
         AtendimentoEntity atendimento = getAtendimentoId(atendimentoId);
         atendimentoRepository.deleteById(atendimento.getId());
     }
+    
+    //Método para Login/Logoff
+    public boolean verificaUsuarioLogado(String cookie){
+        return !cookie.isEmpty();
+    }
 }

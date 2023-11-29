@@ -30,7 +30,10 @@
             </div>
             <div class="col-sm-2">
                 <nav id="menuLogin">
-                    <div class="row">
+                    <div class="row" th:if="${estaLogado == true}">
+                        <a th:href="@{/logoff}">Logoff</a>
+                    </div>
+                    <div class="row" th:unless="${estaLogado == true}">
                         <a th:href="@{/index-login}">Login</a>
                     </div>
                     <div class="row">
@@ -43,7 +46,11 @@
                 </nav>
             </div>
         </header>
-
+        
+        <div th:if="${not #strings.isEmpty(mensagemSucesso)}" class="alert alert-success col-sm-4 align-self-center">
+            <p th:text="${mensagemSucesso}"></p>
+        </div>
+        
         <div id="containerLogin">
             <div class="row" id="containerLogin">
                 <div class="col-sm-11">

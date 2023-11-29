@@ -30,7 +30,10 @@
             </div>
             <div class="col-sm-2">
                 <nav id="menuLogin">
-                    <div class="row">
+                    <div class="row" th:if="${estaLogado == true}">
+                        <a th:href="@{/logoff}">Logoff</a>
+                    </div>
+                    <div class="row" th:unless="${estaLogado == true}">
                         <a th:href="@{/index-login}">Login</a>
                     </div>
                     <div class="row">
@@ -60,37 +63,37 @@
                         <input id="txtLogin" type="hidden" class="form-control" th:value="${paciente.login}" th:field="*{login}" disabled=""/>
                     <div class="pb-4">
                         <label for="txtSenha" class="form-label"><b>Senha*:</b></label>
-                        <input id="txtSenha" type="password" class="form-control" th:value="${paciente.senha}" th:field="*{senha}" disabled=""/>
+                        <input id="txtSenha" type="password" class="form-control" th:value="${paciente.senha}" th:field="*{senha}" required="" disabled=""/>
                     </div>
                     <div class="pb-4">
                         <label for="txtNome" class="form-label"><b>Nome Completo*:</b></label>
-                        <input id="txtNome" type="text" class="form-control" th:value="${paciente.nome}" th:field="*{nome}" disabled=""/>
+                        <input id="txtNome" type="text" class="form-control" th:value="${paciente.nome}" th:field="*{nome}" required="" disabled=""/>
                     </div>
                     <div class="pb-4">
                         <label for="txtNascimento" class="form-label"><b>Data de Nascimento*:</b></label>
-                        <input id="txtNascimento" type="date" class="form-control" th:value="${paciente.nascimento}" th:field="*{nascimento}" disabled=""/>
+                        <input id="txtNascimento" type="date" class="form-control" th:value="${paciente.nascimento}" th:field="*{nascimento}" required="" disabled=""/>
                     </div>
                     <div class="pb-4">
                         <label for="txtCPF" class="form-label"><b>CPF*:</b></label>
-                        <input id="txtCPF" type="text" class="form-control" th:value="${paciente.cpf}" th:field="*{cpf}" disabled=""/>
+                        <input id="txtCPF" type="text" class="form-control" th:value="${paciente.cpf}" th:field="*{cpf}" required="" disabled=""/>
                     </div>
                     <div class="pb-4">
                         <label for="txtRG" class="form-label"><b>RG*:</b></label>
-                        <input id="txtRG" type="text" class="form-control" th:value="${paciente.rg}" th:field="*{rg}" disabled=""/>
+                        <input id="txtRG" type="text" class="form-control" th:value="${paciente.rg}" th:field="*{rg}" required="" disabled=""/>
                     </div>                    
                 </div>
                 <div class="col-sm-6">
                     <div class="pb-4">
                         <label for="txtEndereco" class="form-label"><b>Endereço*:</b></label>
-                        <input id="txtEndereco" type="text" class="form-control" th:value="${paciente.endereco}" th:field="*{endereco}" disabled=""/>
+                        <input id="txtEndereco" type="text" class="form-control" th:value="${paciente.endereco}" th:field="*{endereco}" required="" disabled=""/>
                     </div>
                     <div class="pb-4">
                         <label for="txtTelefone" class="form-label"><b>Telefone*:</b></label>
-                        <input id="txtTelefone" type="text" class="form-control" th:value="${paciente.telefone}" th:field="*{telefone}" disabled=""/>
+                        <input id="txtTelefone" type="text" class="form-control" th:value="${paciente.telefone}" th:field="*{telefone}" required="" disabled=""/>
                     </div>
                     <div class="pb-4">
                         <label for="txtEmail" class="form-label"><b>Email*:</b></label>
-                        <input id="txtEmail" type="email" class="form-control" th:value="${paciente.email}" th:field="*{email}" disabled=""/>
+                        <input id="txtEmail" type="email" class="form-control" th:value="${paciente.email}" th:field="*{email}" required="" disabled=""/>
                         <input type="hidden" th:field="*{indicacao}"/>
                         <input type="hidden" th:field="*{nome_indicacao}"/>
                     </div>
@@ -98,8 +101,9 @@
                         <label for="slctConvenio" class="form-label"><b>Convênio:</b></label>
                         <select id="slctConvenio" class="form-select" th:field="*{convenio}" disabled="">
                             <option th:if="${convenioEscolhido != null}" th:value="${convenioEscolhido.id}" th:text="${convenioEscolhido.nome}" selected=""></option>                 
+                            <option th:unless="${convenioEscolhido != null}" value="" selected="">Não possuo</option>
                             <option th:each="convenio : ${listarConveniosSemEscolhido}" th:value="${convenio.id}" th:text="${convenio.nome}"></option>
-                            <option value="">Não possuo</option>
+                            <option th:if="${convenioEscolhido != null}" value="">Não possuo</option>
                         </select>
                     </div>
                 </div>

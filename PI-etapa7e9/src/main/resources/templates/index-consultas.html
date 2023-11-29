@@ -1,115 +1,122 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"/>
-    <title>Etapas 7 e 9 - PI - Página de Consultas</title>
-</head>
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"/>
+        <title>Etapas 7 e 9 - PI - Página de Consultas</title>
+    </head>
 
-<body>
-    <div class="container">
-        <header class="row">
-            <div class="col-sm-2" style="height: 140px;">
-                <a th:href="@{/index-inicial}"><img src="/imgs/logo.png" alt="logo consultório" style="width: 100%;"
-                        class="img-fluid"/></a>
+    <body>
+        <div class="container">
+            <header class="row">
+                <div class="col-sm-2" style="height: 140px;">
+                    <a th:href="@{/index-inicial}"><img src="/imgs/logo.png" alt="logo consultório" style="width: 100%;"
+                                                        class="img-fluid"/></a>
+                </div>
+                <div class="col-sm-4" style="padding-top: 15px;">
+                    <h2>Consultório Específico</h2>
+                    <p>Cidade Randômica <br/> Rua Aleatória, 123 <br/> Bairro Indefinido</p>
+                </div>
+                <div class="col-sm-4">
+                    <nav id="menuPrincipal">
+                        <a th:href="@{/index-agendamento}">Agendar atendimento </a>|
+                        <a th:href="@{/index-consultas}">Suas Consultas </a>|
+                        <a th:href="@{/index-equipe}">Equipe</a>
+                    </nav>
+                </div>
+                <div class="col-sm-2">
+                    <nav id="menuLogin">
+                        <div class="row" th:if="${estaLogado == true}">
+                            <a th:href="@{/logoff}">Logoff</a>
+                        </div>
+                        <div class="row" th:unless="${estaLogado == true}">
+                            <a th:href="@{/index-login}">Login</a>
+                        </div>
+                        <div class="row">
+                            <a th:href="@{/index-cadastro}">Cadastre-se</a>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <a th:href="@{'/index-atualizar/' + ${usuario}}">Sua conta</a>
+                        </div>
+                    </nav>
+                </div>
+            </header>
+            
+            <div th:if="${not #strings.isEmpty(mensagemSucesso)}" class="alert alert-success col-sm-4 align-self-center">
+                <p th:text="${mensagemSucesso}"></p>
             </div>
-            <div class="col-sm-4" style="padding-top: 15px;">
-                <h2>Consultório Específico</h2>
-                <p>Cidade Randômica <br/> Rua Aleatória, 123 <br/> Bairro Indefinido</p>
+            
+            <div class="row">
+                <table class="table table-bordered table-striped" id="tabelaReservas">
+                    <thead>
+                        <tr>
+                            <th>Data e Horário</th>
+                            <th>Especialidade Procurada</th>
+                            <th>Paciente</th>
+                            <th>Cirurgiã(o)-Dentista Marcado</th>
+                            <th>Cirurgiã(o)-Dentista que Realizou o Atendimento</th>
+                            <th>Auxiliar que Realizou o Atendimento</th>
+                            <th>N° do Convênio</th>
+                            <th>Cancelar Consulta?</th>
+                        </tr>
+                    </thead>
+                    <tbody id="corpoTabela">
+                        <tr th:each="atendimento : ${listarAtendimentos}">
+                            <td th:text="${atendimento.data_hora}"></td>
+                            <td th:text="${atendimento.especialidade.nome}"></td>
+                            <td th:text="${atendimento.paciente.nome}"></td>
+                            <td th:text="${atendimento.dentista_marcado.nome}"></td>
+                            <td th:if="${atendimento.dentista_atendeu != null}" th:text="${atendimento.dentista_atendeu.nome}"></td>
+                            <td th:unless="${atendimento.dentista_atendeu != null}"> - </td>
+                            <td th:if="${atendimento.auxiliar != null}" th:text="${atendimento.auxiliar.nome}"></td>
+                            <td th:unless="${atendimento.auxiliar != null}"> - </td>
+                            <td th:if="${atendimento.numero_convenio != null}" th:text="${atendimento.numero_convenio}"></td>
+                            <td th:unless="${atendimento.numero_convenio != null}">Não utilizou/possui</td>
+                            <td><a th:href="@{/deletarConsulta/{id}(id = ${atendimento.id})}" class="btn btn-danger btnCancelaConsulta" data-id="${atendimento.id}">Cancelar</a></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="col-sm-4">
-                <nav id="menuPrincipal">
-                    <a th:href="@{/index-agendamento}">Agendar atendimento </a>|
-                    <a th:href="@{/index-consultas}">Suas Consultas </a>|
-                    <a th:href="@{/index-equipe}">Equipe</a>
-                </nav>
-            </div>
-            <div class="col-sm-2">
-                <nav id="menuLogin">
-                    <div class="row">
-                        <a th:href="@{/index-login}">Login</a>
+
+            <footer class="row">
+                <div class="col-sm-6">
+                    <h3>Informações de Contato</h3>
+                    <p>Venha falar conosco e tire suas dúvidas</p>
+                </div>
+                <div class="col-sm-2">
+                    <div class="text-center">
+                        <img src="/imgs/whatsapp.png" alt="telefone" class="imgsIcones"/>
+                        <p>(00)988776655</p>
                     </div>
-                    <div class="row">
-                        <a th:href="@{/index-cadastro}">Cadastre-se</a>
+                </div>
+                <div class="col-sm-2">
+                    <div class="text-center">
+                        <img src="/imgs/email.png" alt="e-mail" class="imgsIcones"/>
+                        <p>consultorio@email.com</p>
                     </div>
-                    <br/>
-                    <div class="row">
-                        <a th:href="@{'/index-atualizar/' + ${usuario}}">Sua conta</a>
+                </div>
+                <div class="col-sm-2">
+                    <div class="text-center">
+                        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"><img
+                                src="/imgs/instagram.png" alt="instagram" class="imgsIcones"/></a>
+                        <p>
+                            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"
+                               id="txtInstagram">Instagram</a>
+                        </p>
                     </div>
-                </nav>
-            </div>
-        </header>
-        
-        <div class="row">
-            <table class="table table-bordered table-striped" id="tabelaReservas">
-                <thead>
-                    <tr>
-                        <th>Data e Horário</th>
-                        <th>Especialidade Procurada</th>
-                        <th>Paciente</th>
-                        <th>Cirurgiã(o)-Dentista Marcado</th>
-                        <th>Cirurgiã(o)-Dentista que Realizou o Atendimento</th>
-                        <th>Auxiliar que Realizou o Atendimento</th>
-                        <th>N° do Convênio</th>
-                        <th>Cancelar Consulta?</th>
-                    </tr>
-                </thead>
-                <tbody id="corpoTabela">
-                    <tr th:each="atendimento : ${listarAtendimentos}">
-                        <td th:text="${atendimento.data_hora}"></td>
-                        <td th:text="${atendimento.especialidade.nome}"></td>
-                        <td th:text="${atendimento.paciente.nome}"></td>
-                        <td th:text="${atendimento.dentista_marcado.nome}"></td>
-                        <td th:if="${atendimento.dentista_atendeu != null}" th:text="${atendimento.dentista_atendeu.nome}"></td>
-                        <td th:unless="${atendimento.dentista_atendeu != null}"> - </td>
-                        <td th:if="${atendimento.auxiliar != null}" th:text="${atendimento.auxiliar.nome}"></td>
-                        <td th:unless="${atendimento.auxiliar != null}"> - </td>
-                        <td th:if="${atendimento.numero_convenio != null}" th:text="${atendimento.numero_convenio}"></td>
-                        <td th:unless="${atendimento.numero_convenio != null}">Não utilizou/possui</td>
-                        <td><a th:href="@{/deletarConsulta/{id}(id = ${atendimento.id})}" class="btn btn-danger" id="btnCancelaConsulta">Cancelar</a></td>
-                    </tr>
-                </tbody>
-            </table>
+                </div>
+            </footer>
         </div>
-        
-        <footer class="row">
-            <div class="col-sm-6">
-                <h3>Informações de Contato</h3>
-                <p>Venha falar conosco e tire suas dúvidas</p>
-            </div>
-            <div class="col-sm-2">
-                <div class="text-center">
-                    <img src="/imgs/whatsapp.png" alt="telefone" class="imgsIcones"/>
-                    <p>(00)988776655</p>
-                </div>
-            </div>
-            <div class="col-sm-2">
-                <div class="text-center">
-                    <img src="/imgs/email.png" alt="e-mail" class="imgsIcones"/>
-                    <p>consultorio@email.com</p>
-                </div>
-            </div>
-            <div class="col-sm-2">
-                <div class="text-center">
-                    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"><img
-                            src="/imgs/instagram.png" alt="instagram" class="imgsIcones"/></a>
-                    <p>
-                        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"
-                            id="txtInstagram">Instagram</a>
-                    </p>
-                </div>
-            </div>
-        </footer>
-    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
-    <script th:src="@{/js/scripts.js}"></script>
-</body>
+        <script th:src="@{/js/scripts.js}"></script>
+    </body>
 
 </html>

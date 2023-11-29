@@ -30,7 +30,10 @@
             </div>
             <div class="col-sm-2">
                 <nav id="menuLogin">
-                    <div class="row">
+                    <div class="row" th:if="${estaLogado == true}">
+                        <a th:href="@{/logoff}">Logoff</a>
+                    </div>
+                    <div class="row" th:unless="${estaLogado == true}">
                         <a th:href="@{/index-login}">Login</a>
                     </div>
                     <div class="row">

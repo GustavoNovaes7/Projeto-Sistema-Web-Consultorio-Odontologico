@@ -82,7 +82,7 @@ a:active {
 }
 
 /*Tela de Consulta*/
-#btnCancelaConsulta {
+.btnCancelaConsulta {
     max-width: 150px !important;
     max-height: 50px !important;
     font-size: 22px !important;

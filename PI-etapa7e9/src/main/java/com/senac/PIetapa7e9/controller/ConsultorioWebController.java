@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class ConsultorioWebController {
@@ -30,8 +32,10 @@ public class ConsultorioWebController {
     @GetMapping("/index-cadastro")
     public String mostraTelaCadastro(@CookieValue(name = "cookieUsuario", defaultValue = "") String cookie, Model model) {
         PacienteEntity paciente = new PacienteEntity();
-        List<ConvenioEntity> listaConvenios = consultorioService.listarConvenios();
-
+        List<ConvenioEntity> listaConvenios = consultorioService.listarConvenios();     
+        boolean estaLogado = consultorioService.verificaUsuarioLogado(cookie);
+        
+        model.addAttribute("estaLogado", estaLogado);
         model.addAttribute("usuario", cookie);
         model.addAttribute("paciente", paciente);
         model.addAttribute("listarConvenios", listaConvenios);
@@ -39,11 +43,12 @@ public class ConsultorioWebController {
     }
 
     @PostMapping("/index-cadastro")
-    public String salvarPaciente(@Valid @ModelAttribute("paciente") PacienteEntity paciente) {
+    public String salvarPaciente(@Valid @ModelAttribute("paciente") PacienteEntity paciente, RedirectAttributes redirectAttributes) {
         if (paciente.getId() == null) {
             consultorioService.criarPaciente(paciente);
         }
-        return "redirect:/index-inicial";
+        redirectAttributes.addFlashAttribute("mensagemSucesso", "Cadastro realizado com sucesso!\nEfetue seu Login.");
+        return "redirect:/index-login";
     }
 
     @GetMapping("/index-atualizar/{pacienteUsuario}")
@@ -60,7 +65,10 @@ public class ConsultorioWebController {
         }
 
         List<ConvenioEntity> listaConveniosSemEscolhido = consultorioService.listarConveniosSemEscolhido(paciente.getId());
-
+        
+        boolean estaLogado = consultorioService.verificaUsuarioLogado(cookie);
+        
+        model.addAttribute("estaLogado", estaLogado);
         model.addAttribute("usuario", cookie);
         model.addAttribute("listarConveniosSemEscolhido", listaConveniosSemEscolhido);
         model.addAttribute("convenioEscolhido", convenioEscolhido);
@@ -87,7 +95,10 @@ public class ConsultorioWebController {
         atendimento.setConvenio(convenio);
         List<EspecialidadeEntity> listaEspecialidades = consultorioService.listarEspecialidades();
         List<DentistaEntity> listaDentistas = consultorioService.listarDentistasPorEspecialidade();
-
+        
+        boolean estaLogado = consultorioService.verificaUsuarioLogado(cookie);
+        
+        model.addAttribute("estaLogado", estaLogado);
         model.addAttribute("listarEspecialidades", listaEspecialidades);
         model.addAttribute("listarDentistasPorEspecialidade", listaDentistas);
         model.addAttribute("usuario", cookie);
@@ -96,8 +107,9 @@ public class ConsultorioWebController {
     }
 
     @PostMapping("/index-agendamento")
-    public String salvarAgendamento(@Valid @ModelAttribute("atendimento") AtendimentoEntity atendimento) {
+    public String salvarAgendamento(@Valid @ModelAttribute("atendimento") AtendimentoEntity atendimento, RedirectAttributes redirectAttributes) {
         consultorioService.criarAtendimento(atendimento);
+        redirectAttributes.addFlashAttribute("mensagemSucesso", "Agendamento realizado com sucesso!");
         return "redirect:/index-consultas";
     }
 
@@ -107,8 +119,10 @@ public class ConsultorioWebController {
         if (paciente == null) {
             return "redirect:/index-nao-esta-conectado";
         }
-        List<AtendimentoEntity> listaAtendimentos = consultorioService.listarAtendimentos(paciente.getId());
-
+        List<AtendimentoEntity> listaAtendimentos = consultorioService.listarAtendimentos(paciente.getId());       
+        boolean estaLogado = consultorioService.verificaUsuarioLogado(cookie);
+        
+        model.addAttribute("estaLogado", estaLogado);
         model.addAttribute("listarAtendimentos", listaAtendimentos);
         model.addAttribute("usuario", cookie);
         return "index-consultas";
@@ -123,12 +137,16 @@ public class ConsultorioWebController {
     //Métodos Gerais        
     @GetMapping("/index-inicial")
     public String mostraTelaInicial(@CookieValue(name = "cookieUsuario", defaultValue = "") String cookie, Model model) {
+        boolean estaLogado = consultorioService.verificaUsuarioLogado(cookie);
+        model.addAttribute("estaLogado", estaLogado);
         model.addAttribute("usuario", cookie);
         return "index-inicial";
     }
 
     @GetMapping("/index-equipe")
     public String mostraTelaEquipe(@CookieValue(name = "cookieUsuario", defaultValue = "") String cookie, Model model) {
+        boolean estaLogado = consultorioService.verificaUsuarioLogado(cookie);
+        model.addAttribute("estaLogado", estaLogado);
         model.addAttribute("usuario", cookie);
         return "index-equipe";
     }
@@ -159,13 +177,24 @@ public class ConsultorioWebController {
         response.addCookie(cookieUsuarioNovo);
 
         //Validando usuário
+        BCryptPasswordEncoder codificadorSenha = new BCryptPasswordEncoder();
         List<PacienteEntity> listaPacientes = consultorioService.listarPacientes();
         for (PacienteEntity paciente : listaPacientes) {
-            if (paciente.getLogin().equals(usuario.getLogin()) && paciente.getSenha().equals(usuario.getSenha())) {
+            if (paciente.getLogin().equals(usuario.getLogin()) && codificadorSenha.matches(usuario.getSenha(), paciente.getSenha())) {
                 return "redirect:/index-inicial";
             }
         }
         return "redirect:/index-login-erro";
+    }
+
+    @GetMapping("/logoff")
+    public String realizarLogoff(HttpServletResponse response) {
+        Cookie cookieRemoverVelho = new Cookie("cookieUsuario", "");
+        cookieRemoverVelho.setDomain("localhost");
+        cookieRemoverVelho.setMaxAge(0);
+        response.addCookie(cookieRemoverVelho);
+
+        return "redirect:/index-login";
     }
 
     //Erros de Login e Não Logado
